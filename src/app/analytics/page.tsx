@@ -12,6 +12,8 @@ import { Button } from "@/components/ui/button";
 export default function AnalyticsPage() {
   const [comparisonLaptops, setComparisonLaptops] = useState<Laptop[]>([]);
   const [isClient, setIsClient] = useState(false);
+  // Add a key to force re-render on theme change
+  const [themeKey, setThemeKey] = useState(0);
 
   useEffect(() => {
     setIsClient(true);
@@ -19,6 +21,19 @@ export default function AnalyticsPage() {
     if (storedComparison) {
       setComparisonLaptops(JSON.parse(storedComparison));
     }
+
+    const handleThemeChange = () => {
+      setThemeKey(prevKey => prevKey + 1);
+    };
+
+    window.addEventListener('themeChanged', handleThemeChange);
+
+    // Set initial theme key
+    handleThemeChange();
+
+    return () => {
+      window.removeEventListener('themeChanged', handleThemeChange);
+    };
   }, []);
 
   if (!isClient) {
@@ -43,7 +58,7 @@ export default function AnalyticsPage() {
           </header>
 
           {comparisonLaptops.length > 1 ? (
-            <ComparisonCharts laptops={comparisonLaptops} />
+            <ComparisonCharts key={themeKey} laptops={comparisonLaptops} />
           ) : (
             <Card className="shadow-lg border-primary/20 max-w-2xl mx-auto">
               <CardHeader>
