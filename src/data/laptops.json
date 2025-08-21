@@ -174,5 +174,54 @@
     "purposeTags": ["gaming", "coding"],
     "studentDiscount": true,
     "discountInfo": "Dell offers special student discounts via their official website. Requires student ID verification."
+  },
+  {
+    "id": "15",
+    "name": "Asus Zenbook 14 OLED",
+    "brand": "Asus",
+    "price": 85000,
+    "ram": 16,
+    "cpu": "Intel Core Ultra 7 155H",
+    "gpu": "Intel Arc Graphics",
+    "weight": 1.2,
+    "purposeTags": ["study", "design", "coding"],
+    "studentDiscount": false
+  },
+  {
+    "id": "16",
+    "name": "Asus TUF Gaming F15",
+    "brand": "Asus",
+    "price": 95000,
+    "ram": 16,
+    "cpu": "Intel Core i7-12700H",
+    "gpu": "NVIDIA GeForce RTX 4050",
+    "weight": 2.2,
+    "purposeTags": ["gaming", "coding"],
+    "studentDiscount": true,
+    "discountInfo": "Asus sometimes offers back-to-school deals. Check their official store around August."
+  },
+  {
+    "id": "17",
+    "name": "Asus ProArt StudioBook 16",
+    "brand": "Asus",
+    "price": 180000,
+    "ram": 32,
+    "cpu": "Intel Core i9-13980HX",
+    "gpu": "NVIDIA GeForce RTX 4070",
+    "weight": 2.4,
+    "purposeTags": ["design", "gaming"],
+    "studentDiscount": false
+  },
+  {
+    "id": "18",
+    "name": "Asus Vivobook S 15",
+    "brand": "Asus",
+    "price": 72000,
+    "ram": 16,
+    "cpu": "AMD Ryzen 7 7730U",
+    "gpu": "AMD Radeon Graphics",
+    "weight": 1.7,
+    "purposeTags": ["study", "coding"],
+    "studentDiscount": false
   }
 ]
