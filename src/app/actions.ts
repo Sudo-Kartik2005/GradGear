@@ -1,7 +1,9 @@
 "use server";
 
-import type { SearchCriteria, Recommendation, Laptop } from "@/types";
+import type { SearchCriteria, Recommendation, Laptop, DayInLifeInput } from "@/types";
 import laptopsData from "@/data/laptops.json";
+import { generateDayInLifeStory } from "@/ai/flows/day-in-life-flow";
+
 
 const allLaptops: Laptop[] = laptopsData as Laptop[];
 
@@ -83,4 +85,9 @@ export async function findLaptops(
   }));
 
   return recommendations;
+}
+
+export async function generateDayInLifeStoryAction(input: DayInLifeInput): Promise<string> {
+    const result = await generateDayInLifeStory(input);
+    return result.story;
 }

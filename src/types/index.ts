@@ -14,9 +14,19 @@ export interface Recommendation extends Laptop {
   reason: string;
 }
 
+export type Purpose = "study" | "coding" | "design" | "gaming";
+
 export interface SearchCriteria {
   budget: number;
-  purpose: "study" | "coding" | "design" | "gaming";
+  purpose: Purpose;
   brandPreference?: string;
   portability?: boolean;
+}
+
+export interface DayInLifeInput {
+    laptopName: string;
+    cpu: string;
+    gpu: string;
+    ram: number;
+    purpose: Purpose;
 }

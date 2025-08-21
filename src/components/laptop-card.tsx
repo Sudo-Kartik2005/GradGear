@@ -6,10 +6,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type { Recommendation } from "@/types";
-import { Cpu, MemoryStick, Scale, BrainCircuit, Weight } from "lucide-react";
+import type { Recommendation, SearchCriteria } from "@/types";
+import { Cpu, MemoryStick, BrainCircuit, Weight, Sparkles } from "lucide-react";
+import { DayInLifeDialog } from "./day-in-life-dialog";
 
-export function LaptopCard({ laptop }: { laptop: Recommendation }) {
+export function LaptopCard({
+  laptop,
+  purpose,
+}: {
+  laptop: Recommendation;
+  purpose: SearchCriteria["purpose"];
+}) {
   return (
     <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 border-primary/20">
       <CardHeader>
@@ -39,8 +46,9 @@ export function LaptopCard({ laptop }: { laptop: Recommendation }) {
           <span>{laptop.weight}kg</span>
         </div>
       </CardContent>
-      <CardFooter className="bg-secondary/50 p-4 mt-auto">
+      <CardFooter className="bg-secondary/50 p-4 mt-auto grid gap-4">
         <p className="text-sm text-muted-foreground italic">"{laptop.reason}"</p>
+        <DayInLifeDialog laptop={laptop} purpose={purpose} />
       </CardFooter>
     </Card>
   );

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { findLaptops } from "@/app/actions";
-import type { Recommendation } from "@/types";
+import type { Recommendation, SearchCriteria } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -48,6 +48,9 @@ export default function Home() {
   >(null);
   const [loading, setLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [searchCriteria, setSearchCriteria] = useState<SearchCriteria | null>(
+    null
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -63,6 +66,7 @@ export default function Home() {
     setLoading(true);
     setRecommendations(null);
     setHasSearched(true);
+    setSearchCriteria(values);
     const results = await findLaptops(values);
     setRecommendations(results);
     setLoading(false);
@@ -196,7 +200,7 @@ export default function Home() {
           </div>
         )}
 
-        {hasSearched && !loading && recommendations && (
+        {hasSearched && !loading && recommendations && searchCriteria && (
           <>
             <h2 className="text-3xl font-bold text-center mb-8">
               Our Top Recommendations
@@ -204,7 +208,7 @@ export default function Home() {
             {recommendations.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
                 {recommendations.map((laptop) => (
-                  <LaptopCard key={laptop.id} laptop={laptop} />
+                  <LaptopCard key={laptop.id} laptop={laptop} purpose={searchCriteria.purpose} />
                 ))}
               </div>
             ) : (
