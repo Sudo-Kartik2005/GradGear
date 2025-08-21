@@ -65,6 +65,14 @@ export default function DealsPage() {
     setStarredLaptops(newStarredList);
     localStorage.setItem('starredLaptops', JSON.stringify(newStarredList));
   };
+
+  const starredDeals = starredLaptops.filter(starred => 
+    dealLaptops.some(deal => deal.id === starred.id)
+  ).map(laptop => ({
+    ...laptop,
+    reason: `Great student deal available for this model.`,
+    softwareCompatibility: null,
+  }));
   
   if (!isClient) {
     return null;
@@ -113,19 +121,19 @@ export default function DealsPage() {
             </div>
           </section>
 
-           {starredLaptops.length > 0 && (
+           {starredDeals.length > 0 && (
             <section className="mt-16">
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-bold text-primary flex items-center">
                   <Star className="w-8 h-8 mr-4 text-amber-400 fill-amber-400" />
-                  Your Starred Laptops
+                  Your Starred Deals
                 </h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
-                {starredLaptops.map((laptop) => (
+                {starredDeals.map((laptop) => (
                   <LaptopCard
                     key={`starred-deal-${laptop.id}`}
-                    laptop={laptop as Recommendation}
+                    laptop={laptop}
                     purpose={"study"}
                     onCompareChange={handleComparisonChange}
                     isSelectedForCompare={comparisonLaptops.some(l => l.id === laptop.id)}

@@ -5,7 +5,6 @@ import Link from "next/link"
 import {
   GraduationCap,
   Home,
-  Star,
   LineChart,
   Package,
 } from "lucide-react"
@@ -24,7 +23,6 @@ export function Sidebar() {
 
   const navItems = [
     { href: "/", icon: Home, label: "Dashboard" },
-    { href: "/deals", icon: Star, label: "Featured" },
     { href: "/deals", icon: Package, label: "Deals" },
     { href: "/analytics", icon: LineChart, label: "Analytics" },
   ];
