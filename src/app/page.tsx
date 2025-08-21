@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -29,8 +30,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import { LaptopCard } from "@/components/laptop-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ComparisonDialog } from "@/components/comparison-dialog";
-import { Bot, Star } from "lucide-react";
+import { Bot, Star, ArrowDown } from "lucide-react";
 import { Sidebar } from "@/components/sidebar";
+import Image from "next/image";
 
 
 const formSchema = z.object({
@@ -59,6 +61,7 @@ export default function Home() {
   const [notes, setNotes] = useState<{ [key: string]: string }>({});
   const [starredLaptops, setStarredLaptops] = useState<Laptop[]>([]);
   const [isClient, setIsClient] = useState(false);
+  const finderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -120,6 +123,10 @@ export default function Home() {
     setStarredLaptops(newStarredList);
     localStorage.setItem('starredLaptops', JSON.stringify(newStarredList));
   };
+  
+  const handleGetStartedClick = () => {
+    finderRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
 
   if (!isClient) {
@@ -131,19 +138,32 @@ export default function Home() {
       <Sidebar />
       <main className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 flex-1">
         <div className="container mx-auto px-4 py-8 md:py-12">
-          <header className="flex justify-between items-center mb-12">
-            <div className="text-left">
-              <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary tracking-tight">
-                Budget Laptop Finder
+           <section className="text-center md:text-left md:flex md:items-center md:justify-between py-12 md:py-24">
+            <div className="max-w-2xl">
+              <h1 className="font-headline text-4xl md:text-6xl font-bold text-primary tracking-tight">
+                Find Your Perfect Student Laptop
               </h1>
-              <p className="mt-4 text-lg text-muted-foreground max-w-2xl">
-                Tell us your budget and what you need a laptop for. Our AI assistant
-                will help you find the perfect match.
+              <p className="mt-6 text-lg md:text-xl text-muted-foreground">
+                Overwhelmed by choice? Our AI-powered tool simplifies your search. Just tell us your budget and needs, and we&apos;ll find the ideal laptop for your studies, projects, and everything in between.
               </p>
+              <Button size="lg" className="mt-8" onClick={handleGetStartedClick}>
+                Get Started
+                <ArrowDown className="ml-2"/>
+              </Button>
             </div>
-          </header>
+            <div className="mt-12 md:mt-0 md:ml-12">
+               <Image 
+                src="https://placehold.co/400x400.png"
+                alt="Student using a laptop"
+                width={400}
+                height={400}
+                className="rounded-lg shadow-2xl"
+                data-ai-hint="student laptop"
+               />
+            </div>
+          </section>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto" ref={finderRef}>
             <Card className="shadow-lg border-primary/20">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">Find Your Laptop</CardTitle>
@@ -349,3 +369,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
