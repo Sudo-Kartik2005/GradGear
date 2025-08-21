@@ -4,6 +4,7 @@ import type { SearchCriteria, Recommendation, Laptop, DayInLifeInput } from "@/t
 import laptopsData from "@/data/laptops.json";
 import { generateDayInLifeStory } from "@/ai/flows/day-in-life-flow";
 import { checkSoftwareCompatibility } from "@/ai/flows/software-check-flow";
+import { generateSpeech, GenerateSpeechInput } from "@/ai/flows/tts-flow";
 
 const allLaptops: Laptop[] = laptopsData as Laptop[];
 
@@ -110,4 +111,9 @@ export async function findLaptops(
 export async function generateDayInLifeStoryAction(input: DayInLifeInput): Promise<string> {
     const result = await generateDayInLifeStory(input);
     return result.story;
+}
+
+export async function generateSpeechAction(input: GenerateSpeechInput): Promise<string> {
+    const result = await generateSpeech(input);
+    return result.audio;
 }

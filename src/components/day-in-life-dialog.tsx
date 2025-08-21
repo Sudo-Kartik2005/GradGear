@@ -10,9 +10,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Sparkles, LoaderCircle } from "lucide-react";
+import { Sparkles, LoaderCircle, Volume2, Waves } from "lucide-react";
 import type { Laptop, Purpose } from "@/types";
-import { generateDayInLifeStoryAction } from "@/app/actions";
+import { generateDayInLifeStoryAction, generateSpeechAction } from "@/app/actions";
+
+type AudioState = 'idle' | 'loading' | 'playing' | 'error';
 
 export function DayInLifeDialog({
   laptop,
@@ -23,30 +25,52 @@ export function DayInLifeDialog({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [story, setStory] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [storyLoading, setStoryLoading] = useState(false);
+  const [storyError, setStoryError] = useState("");
+  const [audioState, setAudioState] = useState<AudioState>('idle');
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
 
   const handleGenerateStory = async () => {
-    if (!isOpen) { // Only generate when opening
-        setError("");
-        setStory("");
-        setLoading(true);
-        try {
-        const result = await generateDayInLifeStoryAction({
-            laptopName: laptop.name,
-            cpu: laptop.cpu,
-            gpu: laptop.gpu,
-            ram: laptop.ram,
-            purpose: purpose,
-        });
-        setStory(result);
-        } catch (e) {
-        setError("Sorry, something went wrong. Please try again.");
-        console.error(e);
-        } finally {
-        setLoading(false);
-        }
+    if (story) return; // Don't re-generate if we have it
+
+    setStoryError("");
+    setStory("");
+    setStoryLoading(true);
+    setAudioState('idle');
+    setAudioUrl(null);
+    try {
+      const result = await generateDayInLifeStoryAction({
+        laptopName: laptop.name,
+        cpu: laptop.cpu,
+        gpu: laptop.gpu,
+        ram: laptop.ram,
+        purpose: purpose,
+      });
+      setStory(result);
+    } catch (e) {
+      setStoryError("Sorry, something went wrong. Please try again.");
+      console.error(e);
+    } finally {
+      setStoryLoading(false);
     }
+  };
+
+  const handleGenerateAudio = async () => {
+    if (!story || audioState === 'loading' || audioUrl) return;
+
+    setAudioState('loading');
+    try {
+      const audioDataUri = await generateSpeechAction({ text: story });
+      setAudioUrl(audioDataUri);
+      setAudioState('playing');
+    } catch (e) {
+      setAudioState('error');
+      console.error(e);
+    }
+  }
+
+  const handleAudioEnded = () => {
+    setAudioState('idle');
   };
 
   return (
@@ -65,17 +89,35 @@ export function DayInLifeDialog({
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 min-h-[150px]">
-          {loading && (
+          {storyLoading && (
             <div className="flex items-center justify-center space-x-2 text-gray-500">
               <LoaderCircle className="animate-spin text-soft-blue" />
               <span>Generating your story...</span>
             </div>
           )}
-          {error && <p className="text-destructive text-sm">{error}</p>}
+          {storyError && <p className="text-destructive text-sm">{storyError}</p>}
           {story && (
-            <p className="text-sm text-gray-600 whitespace-pre-wrap">
-              {story}
-            </p>
+            <div className="space-y-4">
+              <p className="text-sm text-gray-600 whitespace-pre-wrap">
+                {story}
+              </p>
+              <div className="flex items-center justify-start gap-4">
+                <Button variant="outline" size="sm" onClick={handleGenerateAudio} disabled={audioState === 'loading' || audioState === 'playing'}>
+                  {audioState === 'idle' && <Volume2 className="mr-2"/>}
+                  {audioState === 'loading' && <LoaderCircle className="mr-2 animate-spin" />}
+                  {audioState === 'playing' && <Waves className="mr-2 text-primary" />}
+                  {audioState === 'error' && "Error"}
+                  Listen
+                </Button>
+                {audioState === 'error' && <p className="text-xs text-destructive">Could not generate audio.</p>}
+              </div>
+
+              {audioUrl && audioState === 'playing' && (
+                <audio src={audioUrl} autoPlay onEnded={handleAudioEnded}>
+                  Your browser does not support the audio element.
+                </audio>
+              )}
+            </div>
           )}
         </div>
       </DialogContent>
