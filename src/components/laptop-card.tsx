@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import type { Recommendation, SearchCriteria, Laptop } from "@/types";
-import { Cpu, MemoryStick, BrainCircuit, Weight, Info, PercentCircle, MessageSquare } from "lucide-react";
+import { Cpu, MemoryStick, BrainCircuit, Weight, Info, PercentCircle, MessageSquare, Star } from "lucide-react";
 import { DayInLifeDialog } from "./day-in-life-dialog";
 import {
   Tooltip,
@@ -20,6 +20,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "./ui/separator";
+import { Button } from "./ui/button";
 
 export function LaptopCard({
   laptop,
@@ -28,6 +29,8 @@ export function LaptopCard({
   isSelectedForCompare,
   note,
   onNoteChange,
+  onStarChange,
+  isStarred,
 }: {
   laptop: Recommendation;
   purpose: SearchCriteria["purpose"];
@@ -35,24 +38,29 @@ export function LaptopCard({
   isSelectedForCompare: boolean;
   note: string;
   onNoteChange: (laptopId: string, note: string) => void;
+  onStarChange: (laptop: Laptop, isStarred: boolean) => void;
+  isStarred: boolean;
 }) {
   return (
     <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 border-primary/20">
       <CardHeader>
         <div className="flex justify-between items-start">
-          <div>
+          <div className="pr-2">
             <CardTitle className="font-headline text-primary">{laptop.name}</CardTitle>
             <CardDescription>{laptop.brand}</CardDescription>
           </div>
-           <div className="flex items-center space-x-2">
+          <Button variant="ghost" size="icon" onClick={() => onStarChange(laptop, !isStarred)} className="text-muted-foreground hover:text-amber-400">
+            <Star className={`w-6 h-6 ${isStarred ? "text-amber-400 fill-amber-400" : ""}`} />
+          </Button>
+        </div>
+      </CardHeader>
+      <CardContent className="grid gap-4 flex-grow text-sm">
+         <div className="flex items-center space-x-2">
             <Checkbox id={`compare-${laptop.id}`} checked={isSelectedForCompare} onCheckedChange={(checked) => onCompareChange(laptop, !!checked)} />
             <Label htmlFor={`compare-${laptop.id}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
               Compare
             </Label>
           </div>
-        </div>
-      </CardHeader>
-      <CardContent className="grid gap-4 flex-grow text-sm">
          {laptop.studentDiscount && (
              <TooltipProvider>
               <Tooltip>

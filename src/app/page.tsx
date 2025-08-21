@@ -29,7 +29,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import { LaptopCard } from "@/components/laptop-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ComparisonDialog } from "@/components/comparison-dialog";
-import { Bot, Rows } from "lucide-react";
+import { Bot, Star } from "lucide-react";
 import { Sidebar } from "@/components/sidebar";
 
 
@@ -57,6 +57,7 @@ export default function Home() {
   );
   const [comparisonLaptops, setComparisonLaptops] = useState<Laptop[]>([]);
   const [notes, setNotes] = useState<{ [key: string]: string }>({});
+  const [starredLaptops, setStarredLaptops] = useState<Laptop[]>([]);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -87,9 +88,9 @@ export default function Home() {
   }
 
   const handleComparisonChange = (laptop: Laptop, isSelected: boolean) => {
-    setComparisonLaptops(prev => 
-      isSelected 
-        ? [...prev, laptop] 
+    setComparisonLaptops(prev =>
+      isSelected
+        ? [...prev, laptop]
         : prev.filter(l => l.id !== laptop.id)
     );
   }
@@ -97,6 +98,15 @@ export default function Home() {
   const handleNoteChange = (laptopId: string, note: string) => {
     setNotes(prev => ({...prev, [laptopId]: note}));
   }
+
+  const handleStarChange = (laptop: Laptop, isStarred: boolean) => {
+    setStarredLaptops(prev =>
+      isStarred
+        ? [...prev, laptop]
+        : prev.filter(l => l.id !== laptop.id)
+    );
+  };
+
 
   if (!isClient) {
     return null;
@@ -231,6 +241,32 @@ export default function Home() {
             </Card>
           </div>
 
+          {starredLaptops.length > 0 && (
+            <section className="mt-16">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-3xl font-bold text-primary flex items-center">
+                  <Star className="w-8 h-8 mr-4 text-amber-400 fill-amber-400" />
+                  Your Starred Laptops
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+                {starredLaptops.map((laptop) => (
+                  <LaptopCard
+                    key={laptop.id}
+                    laptop={laptop as Recommendation}
+                    purpose={searchCriteria?.purpose || "study"}
+                    onCompareChange={handleComparisonChange}
+                    isSelectedForCompare={comparisonLaptops.some(l => l.id === laptop.id)}
+                    note={notes[laptop.id] || ''}
+                    onNoteChange={handleNoteChange}
+                    onStarChange={handleStarChange}
+                    isStarred={starredLaptops.some(l => l.id === laptop.id)}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+
           <section className="mt-16">
             {loading && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -275,6 +311,8 @@ export default function Home() {
                         isSelectedForCompare={comparisonLaptops.some(l => l.id === laptop.id)}
                         note={notes[laptop.id] || ''}
                         onNoteChange={handleNoteChange}
+                        onStarChange={handleStarChange}
+                        isStarred={starredLaptops.some(l => l.id === laptop.id)}
                       />
                     ))}
                   </div>
