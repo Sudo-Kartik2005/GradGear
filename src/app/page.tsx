@@ -62,6 +62,19 @@ export default function Home() {
 
   useEffect(() => {
     setIsClient(true);
+    // Load starred and notes from localStorage if they exist
+    const storedStarred = localStorage.getItem('starredLaptops');
+    if (storedStarred) {
+      setStarredLaptops(JSON.parse(storedStarred));
+    }
+    const storedNotes = localStorage.getItem('laptopNotes');
+    if (storedNotes) {
+      setNotes(JSON.parse(storedNotes));
+    }
+    const storedComparison = localStorage.getItem('comparisonLaptops');
+    if (storedComparison) {
+        setComparisonLaptops(JSON.parse(storedComparison));
+    }
   }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -80,31 +93,32 @@ export default function Home() {
     setRecommendations(null);
     setHasSearched(true);
     setSearchCriteria(values);
-    setComparisonLaptops([]);
-    setNotes({});
+    // Keep existing comparison, starred and notes on new search
     const results = await findLaptops(values);
     setRecommendations(results);
     setLoading(false);
   }
 
   const handleComparisonChange = (laptop: Laptop, isSelected: boolean) => {
-    setComparisonLaptops(prev =>
-      isSelected
-        ? [...prev, laptop]
-        : prev.filter(l => l.id !== laptop.id)
-    );
+    const newComparisonList = isSelected
+        ? [...comparisonLaptops, laptop]
+        : comparisonLaptops.filter(l => l.id !== laptop.id);
+    setComparisonLaptops(newComparisonList);
+    localStorage.setItem('comparisonLaptops', JSON.stringify(newComparisonList));
   }
 
   const handleNoteChange = (laptopId: string, note: string) => {
-    setNotes(prev => ({...prev, [laptopId]: note}));
+    const newNotes = {...notes, [laptopId]: note};
+    setNotes(newNotes);
+    localStorage.setItem('laptopNotes', JSON.stringify(newNotes));
   }
 
   const handleStarChange = (laptop: Laptop, isStarred: boolean) => {
-    setStarredLaptops(prev =>
-      isStarred
-        ? [...prev, laptop]
-        : prev.filter(l => l.id !== laptop.id)
-    );
+    const newStarredList = isStarred
+        ? [...starredLaptops, laptop]
+        : starredLaptops.filter(l => l.id !== laptop.id);
+    setStarredLaptops(newStarredList);
+    localStorage.setItem('starredLaptops', JSON.stringify(newStarredList));
   };
 
 
@@ -252,7 +266,7 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
                 {starredLaptops.map((laptop) => (
                   <LaptopCard
-                    key={laptop.id}
+                    key={`starred-${laptop.id}`}
                     laptop={laptop as Recommendation}
                     purpose={searchCriteria?.purpose || "study"}
                     onCompareChange={handleComparisonChange}
