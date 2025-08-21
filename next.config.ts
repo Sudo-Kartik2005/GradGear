@@ -9,12 +9,6 @@ const nextConfig: NextConfig = {
       'https://*.cloudworkstations.dev',
     ],
   },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     remotePatterns: [
       {
