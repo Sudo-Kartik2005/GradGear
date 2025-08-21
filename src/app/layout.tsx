@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'Budget Laptop Finder',
+  title: 'GradGear',
   description: 'Find the perfect laptop for your budget and needs.',
 };
 

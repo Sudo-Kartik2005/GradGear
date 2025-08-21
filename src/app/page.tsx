@@ -141,7 +141,7 @@ export default function Home() {
            <section className="text-center md:text-left md:flex md:items-center md:justify-between py-12 md:py-24">
             <div className="max-w-2xl">
               <h1 className="font-headline text-4xl md:text-6xl font-bold text-primary tracking-tight">
-                Find Your Perfect Student Laptop
+                GradGear: Find Your Perfect Student Laptop
               </h1>
               <p className="mt-6 text-lg md:text-xl text-muted-foreground">
                 Overwhelmed by choice? Our AI-powered tool simplifies your search. Just tell us your budget and needs, and we&apos;ll find the ideal laptop for your studies, projects, and everything in between.
