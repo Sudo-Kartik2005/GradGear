@@ -32,7 +32,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ComparisonDialog } from "@/components/comparison-dialog";
 import { Bot, Star, ArrowDown } from "lucide-react";
 import { Sidebar } from "@/components/sidebar";
-import Image from "next/image";
+import { Logo } from "@/components/logo";
 
 
 const formSchema = z.object({
@@ -152,14 +152,7 @@ export default function Home() {
               </Button>
             </div>
             <div className="mt-12 md:mt-0 md:ml-12">
-               <Image 
-                src="https://placehold.co/400x400.png"
-                alt="Student using a laptop"
-                width={400}
-                height={400}
-                className="rounded-lg shadow-2xl"
-                data-ai-hint="student laptop"
-               />
+               <Logo className="rounded-lg shadow-2xl w-[400px] h-[400px]" />
             </div>
           </section>
 
