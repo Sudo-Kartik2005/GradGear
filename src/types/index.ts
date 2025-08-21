@@ -29,13 +29,14 @@ export interface SearchCriteria {
   software?: string;
 }
 
-export interface DayInLifeInput {
-    laptopName: string;
-    cpu: string;
-    gpu: string;
-    ram: number;
-    purpose: Purpose;
-}
+export const DayInLifeInputSchema = z.object({
+  laptopName: z.string().describe('The name of the laptop.'),
+  cpu: z.string().describe('The CPU of the laptop.'),
+  gpu: z.string().describe('The GPU of the laptop.'),
+  ram: z.number().describe('The amount of RAM in GB.'),
+  purpose: z.enum(['study', 'coding', 'design', 'gaming']).describe('The primary purpose for using the laptop.'),
+});
+export type DayInLifeInput = z.infer<typeof DayInLifeInputSchema>;
 
 export const GenerateSpeechInputSchema = z.object({
   text: z.string().describe('The text to convert to speech.'),

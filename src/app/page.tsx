@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { findLaptops } from "@/app/actions";
-import type { Recommendation, SearchCriteria } from "@/types";
+import type { Recommendation, SearchCriteria, Laptop } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -28,7 +28,8 @@ import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { LaptopCard } from "@/components/laptop-card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Bot } from "lucide-react";
+import { ComparisonDialog } from "@/components/comparison-dialog";
+import { Bot, Rows } from "lucide-react";
 
 const formSchema = z.object({
   budget: z.coerce
@@ -52,6 +53,8 @@ export default function Home() {
   const [searchCriteria, setSearchCriteria] = useState<SearchCriteria | null>(
     null
   );
+  const [comparisonLaptops, setComparisonLaptops] = useState<Laptop[]>([]);
+  const [notes, setNotes] = useState<{ [key: string]: string }>({});
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -69,9 +72,23 @@ export default function Home() {
     setRecommendations(null);
     setHasSearched(true);
     setSearchCriteria(values);
+    setComparisonLaptops([]);
+    setNotes({});
     const results = await findLaptops(values);
     setRecommendations(results);
     setLoading(false);
+  }
+
+  const handleComparisonChange = (laptop: Laptop, isSelected: boolean) => {
+    setComparisonLaptops(prev => 
+      isSelected 
+        ? [...prev, laptop] 
+        : prev.filter(l => l.id !== laptop.id)
+    );
+  }
+
+  const handleNoteChange = (laptopId: string, note: string) => {
+    setNotes(prev => ({...prev, [laptopId]: note}));
   }
 
   return (
@@ -223,13 +240,26 @@ export default function Home() {
 
         {hasSearched && !loading && recommendations && searchCriteria && (
           <>
-            <h2 className="text-3xl font-bold text-center mb-8 text-soft-blue">
-              Our Top Recommendations
-            </h2>
+            <div className="flex justify-between items-center mb-8">
+               <h2 className="text-3xl font-bold text-soft-blue">
+                Our Top Recommendations
+              </h2>
+              {comparisonLaptops.length > 1 && (
+                <ComparisonDialog laptops={comparisonLaptops} />
+              )}
+            </div>
             {recommendations.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
                 {recommendations.map((laptop) => (
-                  <LaptopCard key={laptop.id} laptop={laptop} purpose={searchCriteria.purpose} />
+                  <LaptopCard 
+                    key={laptop.id} 
+                    laptop={laptop} 
+                    purpose={searchCriteria.purpose}
+                    onCompareChange={handleComparisonChange}
+                    isSelectedForCompare={comparisonLaptops.some(l => l.id === laptop.id)}
+                    note={notes[laptop.id] || ''}
+                    onNoteChange={handleNoteChange}
+                  />
                 ))}
               </div>
             ) : (
