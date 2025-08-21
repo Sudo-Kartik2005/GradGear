@@ -12,6 +12,7 @@ export interface Laptop {
 
 export interface Recommendation extends Laptop {
   reason: string;
+  softwareCompatibility?: string | null;
 }
 
 export type Purpose = "study" | "coding" | "design" | "gaming";
@@ -21,6 +22,7 @@ export interface SearchCriteria {
   purpose: Purpose;
   brandPreference?: string;
   portability?: boolean;
+  software?: string;
 }
 
 export interface DayInLifeInput {

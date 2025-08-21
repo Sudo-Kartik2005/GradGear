@@ -3,7 +3,7 @@
 import type { SearchCriteria, Recommendation, Laptop, DayInLifeInput } from "@/types";
 import laptopsData from "@/data/laptops.json";
 import { generateDayInLifeStory } from "@/ai/flows/day-in-life-flow";
-
+import { checkSoftwareCompatibility } from "@/ai/flows/software-check-flow";
 
 const allLaptops: Laptop[] = laptopsData as Laptop[];
 
@@ -43,7 +43,7 @@ export async function findLaptops(
 ): Promise<Recommendation[]> {
   await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
 
-  const { budget, purpose, brandPreference, portability } = criteria;
+  const { budget, purpose, brandPreference, portability, software } = criteria;
 
   const filtered = allLaptops.filter((laptop) => {
     if (laptop.price > budget) return false;
@@ -79,10 +79,30 @@ export async function findLaptops(
 
   const topLaptops = sorted.slice(0, 5);
 
-  const recommendations: Recommendation[] = topLaptops.map((laptop) => ({
-    ...laptop,
-    reason: `A great choice for ${purpose}, featuring a ${laptop.cpu}, ${laptop.ram}GB of RAM, and a capable ${laptop.gpu}. It fits perfectly within your budget.`,
-  }));
+  const softwareList = software ? software.split(',').map(s => s.trim()).filter(s => s) : [];
+
+  const recommendations: Recommendation[] = await Promise.all(
+    topLaptops.map(async (laptop) => {
+      let softwareCompatibility = null;
+      if (softwareList.length > 0) {
+        const result = await checkSoftwareCompatibility({
+          laptopName: laptop.name,
+          cpu: laptop.cpu,
+          gpu: laptop.gpu,
+          ram: laptop.ram,
+          software: softwareList,
+        });
+        softwareCompatibility = result.analysis;
+      }
+
+      return {
+        ...laptop,
+        reason: `A great choice for ${purpose}, featuring a ${laptop.cpu}, ${laptop.ram}GB of RAM, and a capable ${laptop.gpu}. It fits perfectly within your budget.`,
+        softwareCompatibility,
+      };
+    })
+  );
+
 
   return recommendations;
 }

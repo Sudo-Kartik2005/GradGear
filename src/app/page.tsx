@@ -40,6 +40,7 @@ const formSchema = z.object({
   }),
   brandPreference: z.string().optional(),
   portability: z.boolean().default(false).optional(),
+  software: z.string().optional(),
 });
 
 export default function Home() {
@@ -59,6 +60,7 @@ export default function Home() {
       purpose: "study",
       brandPreference: "",
       portability: false,
+      software: "",
     },
   });
 
@@ -73,21 +75,21 @@ export default function Home() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-8 md:py-12">
+    <main className="container mx-auto px-4 py-8 md:py-12 bg-light-blue">
       <header className="text-center mb-12">
-        <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary tracking-tight">
+        <h1 className="font-headline text-4xl md:text-5xl font-bold text-soft-blue tracking-tight">
           Budget Laptop Finder
         </h1>
-        <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+        <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
           Tell us your budget and what you need a laptop for. Our AI assistant
           will help you find the perfect match.
         </p>
       </header>
 
       <div className="max-w-4xl mx-auto">
-        <Card className="shadow-lg border-primary/20">
+        <Card className="shadow-lg border-soft-blue/20">
           <CardHeader>
-            <CardTitle className="text-2xl">Find Your Laptop</CardTitle>
+            <CardTitle className="text-2xl text-soft-blue">Find Your Laptop</CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -148,28 +150,46 @@ export default function Home() {
                       </FormItem>
                     )}
                   />
-                  <FormField
+                   <FormField
                     control={form.control}
-                    name="portability"
+                    name="software"
                     render={({ field }) => (
-                      <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                        <div className="space-y-0.5">
-                          <FormLabel>Need a lightweight laptop?</FormLabel>
-                          <FormDescription>
-                            Prioritize portability (under 1.8kg).
-                          </FormDescription>
-                        </div>
-                        <FormControl>
-                          <Switch
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
+                      <FormItem>
+                        <FormLabel>Software (Optional)</FormLabel>
+                         <FormControl>
+                          <Input placeholder="e.g. AutoCAD, Photoshop" {...field} />
                         </FormControl>
+                        <FormDescription>
+                          Comma-separated list of software you use.
+                        </FormDescription>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
+                  <div className="md:col-span-2">
+                    <FormField
+                      control={form.control}
+                      name="portability"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                          <div className="space-y-0.5">
+                            <FormLabel>Need a lightweight laptop?</FormLabel>
+                            <FormDescription>
+                              Prioritize portability (under 1.8kg).
+                            </FormDescription>
+                          </div>
+                          <FormControl>
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                 </div>
-                <Button type="submit" size="lg" className="w-full" disabled={loading}>
+                <Button type="submit" size="lg" className="w-full bg-soft-blue hover:bg-soft-blue/90 text-white" disabled={loading}>
                   {loading ? "Searching..." : "Find Laptops"}
                 </Button>
               </form>
@@ -182,7 +202,7 @@ export default function Home() {
         {loading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[...Array(3)].map((_, i) => (
-              <Card key={i} className="shadow-lg">
+              <Card key={i} className="shadow-lg bg-white">
                 <CardHeader>
                   <Skeleton className="h-6 w-3/4" />
                   <Skeleton className="h-4 w-1/2" />
@@ -191,10 +211,11 @@ export default function Home() {
                   <Skeleton className="h-5 w-full" />
                   <Skeleton className="h-5 w-5/6" />
                   <Skeleton className="h-5 w-full" />
+                   <Skeleton className="h-20 w-full" />
                 </CardContent>
-                <CardContent className="bg-muted/50 p-4">
-                  <Skeleton className="h-12 w-full" />
-                </CardContent>
+                <CardFooter className="bg-gray-50 p-4">
+                   <Skeleton className="h-10 w-full" />
+                </CardFooter>
               </Card>
             ))}
           </div>
@@ -202,7 +223,7 @@ export default function Home() {
 
         {hasSearched && !loading && recommendations && searchCriteria && (
           <>
-            <h2 className="text-3xl font-bold text-center mb-8">
+            <h2 className="text-3xl font-bold text-center mb-8 text-soft-blue">
               Our Top Recommendations
             </h2>
             {recommendations.length > 0 ? (
@@ -212,10 +233,10 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-16 px-6 bg-card rounded-lg shadow-md">
-                <Bot size={48} className="mx-auto text-primary" />
-                <h3 className="mt-4 text-2xl font-bold">No Matches Found</h3>
-                <p className="mt-2 text-muted-foreground">
+              <div className="text-center py-16 px-6 bg-white rounded-lg shadow-md">
+                <Bot size={48} className="mx-auto text-soft-blue" />
+                <h3 className="mt-4 text-2xl font-bold text-gray-800">No Matches Found</h3>
+                <p className="mt-2 text-gray-500">
                   We couldn't find any laptops matching your criteria.
                   <br />
                   Try adjusting your budget or filters.
