@@ -33,8 +33,8 @@ import { Bot } from "lucide-react";
 const formSchema = z.object({
   budget: z.coerce
     .number({ invalid_type_error: "Please enter a valid number." })
-    .min(100, { message: "Budget must be at least $100." })
-    .max(10000, { message: "Budget must be less than $10,000." }),
+    .min(10000, { message: "Budget must be at least ₹10,000." })
+    .max(1000000, { message: "Budget must be less than ₹10,00,000." }),
   purpose: z.enum(["study", "coding", "design", "gaming"], {
     required_error: "You need to select a purpose.",
   }),
@@ -52,7 +52,7 @@ export default function Home() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      budget: 1000,
+      budget: 80000,
       purpose: "study",
       brandPreference: "",
       portability: false,
@@ -81,7 +81,7 @@ export default function Home() {
       </header>
 
       <div className="max-w-4xl mx-auto">
-        <Card className="shadow-lg">
+        <Card className="shadow-lg border-primary/20">
           <CardHeader>
             <CardTitle className="text-2xl">Find Your Laptop</CardTitle>
           </CardHeader>
@@ -97,9 +97,9 @@ export default function Home() {
                     name="budget"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Your Budget ($)</FormLabel>
+                        <FormLabel>Your Budget (₹)</FormLabel>
                         <FormControl>
-                          <Input type="number" placeholder="e.g. 1200" {...field} />
+                          <Input type="number" placeholder="e.g. 80000" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

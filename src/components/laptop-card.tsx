@@ -7,20 +7,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import type { Recommendation } from "@/types";
-import { Cpu, MemoryStick, Scale, DollarSign, BrainCircuit, Weight } from "lucide-react";
+import { Cpu, MemoryStick, Scale, BrainCircuit, Weight } from "lucide-react";
 
 export function LaptopCard({ laptop }: { laptop: Recommendation }) {
   return (
-    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 border-primary/20">
       <CardHeader>
         <CardTitle className="font-headline">{laptop.name}</CardTitle>
         <CardDescription>{laptop.brand}</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4 flex-grow text-sm">
         <div className="flex items-center space-x-3">
-          <DollarSign className="w-5 h-5 text-primary flex-shrink-0" />
-          <span className="text-xl font-semibold">
-            ${laptop.price.toLocaleString()}
+          <span className="text-2xl font-semibold text-primary">
+            ₹{laptop.price.toLocaleString("en-IN")}
           </span>
         </div>
         <div className="flex items-start space-x-3">
@@ -40,7 +39,7 @@ export function LaptopCard({ laptop }: { laptop: Recommendation }) {
           <span>{laptop.weight}kg</span>
         </div>
       </CardContent>
-      <CardFooter className="bg-muted/50 p-4 mt-auto">
+      <CardFooter className="bg-secondary/50 p-4 mt-auto">
         <p className="text-sm text-muted-foreground italic">"{laptop.reason}"</p>
       </CardFooter>
     </Card>
