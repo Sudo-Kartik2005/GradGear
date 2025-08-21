@@ -1,0 +1,156 @@
+[
+  {
+    "id": "1",
+    "name": "MacBook Air M2",
+    "brand": "Apple",
+    "price": 1199,
+    "ram": 8,
+    "cpu": "Apple M2",
+    "gpu": "Integrated 8-core",
+    "weight": 1.24,
+    "purposeTags": ["study", "coding", "design"]
+  },
+  {
+    "id": "2",
+    "name": "Dell XPS 15",
+    "brand": "Dell",
+    "price": 1899,
+    "ram": 16,
+    "cpu": "Intel Core i7-13700H",
+    "gpu": "NVIDIA GeForce RTX 4050",
+    "weight": 1.92,
+    "purposeTags": ["coding", "design", "gaming"]
+  },
+  {
+    "id": "3",
+    "name": "HP Spectre x360",
+    "brand": "HP",
+    "price": 1349,
+    "ram": 16,
+    "cpu": "Intel Core i7-1355U",
+    "gpu": "Intel Iris Xe",
+    "weight": 1.36,
+    "purposeTags": ["study", "coding"]
+  },
+  {
+    "id": "4",
+    "name": "Lenovo Yoga 7i",
+    "brand": "Lenovo",
+    "price": 899,
+    "ram": 16,
+    "cpu": "Intel Core i5-1335U",
+    "gpu": "Intel Iris Xe",
+    "weight": 1.5,
+    "purposeTags": ["study", "coding"]
+  },
+  {
+    "id": "5",
+    "name": "Asus ROG Zephyrus G14",
+    "brand": "Asus",
+    "price": 1599,
+    "ram": 16,
+    "cpu": "AMD Ryzen 9 7940HS",
+    "gpu": "NVIDIA GeForce RTX 4060",
+    "weight": 1.72,
+    "purposeTags": ["gaming", "design", "coding"]
+  },
+  {
+    "id": "6",
+    "name": "Acer Swift Go 14",
+    "brand": "Acer",
+    "price": 799,
+    "ram": 8,
+    "cpu": "Intel Core i5-1335U",
+    "gpu": "Intel Iris Xe",
+    "weight": 1.25,
+    "purposeTags": ["study"]
+  },
+  {
+    "id": "7",
+    "name": "MacBook Pro 14 M3",
+    "brand": "Apple",
+    "price": 1999,
+    "ram": 18,
+    "cpu": "Apple M3 Pro",
+    "gpu": "Integrated 14-core",
+    "weight": 1.6,
+    "purposeTags": ["design", "coding"]
+  },
+  {
+    "id": "8",
+    "name": "Razer Blade 15",
+    "brand": "Razer",
+    "price": 2499,
+    "ram": 16,
+    "cpu": "Intel Core i7-13800H",
+    "gpu": "NVIDIA GeForce RTX 4070",
+    "weight": 2.01,
+    "purposeTags": ["gaming", "design"]
+  },
+  {
+    "id": "9",
+    "name": "Microsoft Surface Laptop 5",
+    "brand": "Microsoft",
+    "price": 1299,
+    "ram": 8,
+    "cpu": "Intel Core i7-1255U",
+    "gpu": "Intel Iris Xe",
+    "weight": 1.29,
+    "purposeTags": ["study", "coding"]
+  },
+  {
+    "id": "10",
+    "name": "Lenovo Ideapad Gaming 3",
+    "brand": "Lenovo",
+    "price": 750,
+    "ram": 8,
+    "cpu": "AMD Ryzen 5 7535HS",
+    "gpu": "NVIDIA GeForce RTX 2050",
+    "weight": 2.3,
+    "purposeTags": ["gaming", "study"]
+  },
+  {
+    "id": "11",
+    "name": "Dell Inspiron 15",
+    "brand": "Dell",
+    "price": 550,
+    "ram": 8,
+    "cpu": "Intel Core i5-1235U",
+    "gpu": "Intel UHD",
+    "weight": 1.65,
+    "purposeTags": ["study"]
+  },
+  {
+    "id": "12",
+    "name": "HP Pavilion Aero 13",
+    "brand": "HP",
+    "price": 699,
+    "ram": 16,
+    "cpu": "AMD Ryzen 5 7535U",
+    "gpu": "AMD Radeon Graphics",
+    "weight": 0.99,
+    "purposeTags": ["study", "coding"]
+  },
+    {
+    "id": "13",
+    "name": "Acer Aspire 5",
+    "brand": "Acer",
+    "price": 499,
+    "ram": 8,
+    "cpu": "AMD Ryzen 3 7320U",
+    "gpu": "AMD Radeon Graphics",
+    "weight": 1.78,
+    "purposeTags": ["study"]
+  },
+  {
+    "id": "14",
+    "name": "Dell G15 Gaming Laptop",
+    "brand": "Dell",
+    "price": 999,
+    "ram": 16,
+    "cpu": "Intel Core i7-13650HX",
+    "gpu": "NVIDIA GeForce RTX 4050",
+    "weight": 2.81,
+    "purposeTags": ["gaming", "coding"]
+  }
+]
