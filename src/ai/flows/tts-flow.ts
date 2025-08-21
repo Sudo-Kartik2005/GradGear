@@ -3,26 +3,12 @@
  * @fileOverview A flow to convert text to speech.
  *
  * - generateSpeech - A function that handles the text to speech process.
- * - GenerateSpeechInput - The input type for the generateSpeech function.
- * - GenerateSpeechOutput - The return type for the generateSpeech function.
  */
 import { ai } from '@/ai/genkit';
 import { z } from 'zod';
 import wav from 'wav';
+import { GenerateSpeechInput, GenerateSpeechOutput, GenerateSpeechInputSchema, GenerateSpeechOutputSchema } from '@/types';
 
-export const GenerateSpeechInputSchema = z.object({
-  text: z.string().describe('The text to convert to speech.'),
-});
-export type GenerateSpeechInput = z.infer<typeof GenerateSpeechInputSchema>;
-
-export const GenerateSpeechOutputSchema = z.object({
-  audio: z
-    .string()
-    .describe(
-      "The generated audio as a data URI. Expected format: 'data:audio/wav;base64,<encoded_data>'."
-    ),
-});
-export type GenerateSpeechOutput = z.infer<typeof GenerateSpeechOutputSchema>;
 
 export async function generateSpeech(
   input: GenerateSpeechInput

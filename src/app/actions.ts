@@ -1,10 +1,10 @@
 "use server";
 
-import type { SearchCriteria, Recommendation, Laptop, DayInLifeInput } from "@/types";
+import type { SearchCriteria, Recommendation, Laptop, DayInLifeInput, GenerateSpeechInput } from "@/types";
 import laptopsData from "@/data/laptops.json";
 import { generateDayInLifeStory } from "@/ai/flows/day-in-life-flow";
 import { checkSoftwareCompatibility } from "@/ai/flows/software-check-flow";
-import { generateSpeech, GenerateSpeechInput } from "@/ai/flows/tts-flow";
+import { generateSpeech } from "@/ai/flows/tts-flow";
 
 const allLaptops: Laptop[] = laptopsData as Laptop[];
 
