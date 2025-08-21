@@ -39,9 +39,9 @@ export function ComparisonDialog({ laptops }: { laptops: Laptop[] }) {
           Compare Selected ({laptops.length})
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl bg-white">
+      <DialogContent className="max-w-4xl">
         <DialogHeader>
-          <DialogTitle className="text-soft-blue">Laptop Comparison</DialogTitle>
+          <DialogTitle className="text-primary">Laptop Comparison</DialogTitle>
           <DialogDescription>
             Here is a side-by-side comparison of the laptops you selected.
           </DialogDescription>

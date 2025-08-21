@@ -76,29 +76,29 @@ export function DayInLifeDialog({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button onClick={handleGenerateStory} className="w-full bg-accent-light-green text-green-900 hover:bg-accent-light-green/80">
+        <Button onClick={handleGenerateStory} className="w-full">
           <Sparkles className="mr-2" />
           Visualize My Day
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-white">
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-soft-blue">A Day in Your Life with the {laptop.name}</DialogTitle>
+          <DialogTitle className="text-primary">A Day in Your Life with the {laptop.name}</DialogTitle>
           <DialogDescription>
             An AI-generated glimpse into how this laptop fits your routine.
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 min-h-[150px]">
           {storyLoading && (
-            <div className="flex items-center justify-center space-x-2 text-gray-500">
-              <LoaderCircle className="animate-spin text-soft-blue" />
+            <div className="flex items-center justify-center space-x-2 text-muted-foreground">
+              <LoaderCircle className="animate-spin text-primary" />
               <span>Generating your story...</span>
             </div>
           )}
           {storyError && <p className="text-destructive text-sm">{storyError}</p>}
           {story && (
             <div className="space-y-4">
-              <p className="text-sm text-gray-600 whitespace-pre-wrap">
+              <p className="text-sm text-muted-foreground whitespace-pre-wrap">
                 {story}
               </p>
               <div className="flex items-center justify-start gap-4">

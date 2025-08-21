@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -30,6 +30,7 @@ import { LaptopCard } from "@/components/laptop-card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ComparisonDialog } from "@/components/comparison-dialog";
 import { Bot, Rows } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const formSchema = z.object({
   budget: z.coerce
@@ -55,6 +56,11 @@ export default function Home() {
   );
   const [comparisonLaptops, setComparisonLaptops] = useState<Laptop[]>([]);
   const [notes, setNotes] = useState<{ [key: string]: string }>({});
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -91,22 +97,30 @@ export default function Home() {
     setNotes(prev => ({...prev, [laptopId]: note}));
   }
 
+  if (!isClient) {
+    return null;
+  }
+
   return (
-    <main className="container mx-auto px-4 py-8 md:py-12 bg-light-blue">
-      <header className="text-center mb-12">
-        <h1 className="font-headline text-4xl md:text-5xl font-bold text-soft-blue tracking-tight">
-          Budget Laptop Finder
-        </h1>
-        <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-          Tell us your budget and what you need a laptop for. Our AI assistant
-          will help you find the perfect match.
-        </p>
+    <main className="container mx-auto px-4 py-8 md:py-12">
+       <header className="flex justify-between items-center mb-12">
+        <div className="text-left">
+           <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary tracking-tight">
+            Budget Laptop Finder
+          </h1>
+          <p className="mt-4 text-lg text-muted-foreground max-w-2xl">
+            Tell us your budget and what you need a laptop for. Our AI assistant
+            will help you find the perfect match.
+          </p>
+        </div>
+        <ThemeToggle />
       </header>
 
+
       <div className="max-w-4xl mx-auto">
-        <Card className="shadow-lg border-soft-blue/20">
+        <Card className="shadow-lg border-primary/20">
           <CardHeader>
-            <CardTitle className="text-2xl text-soft-blue">Find Your Laptop</CardTitle>
+            <CardTitle className="text-2xl text-primary">Find Your Laptop</CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...form}>
@@ -206,7 +220,7 @@ export default function Home() {
                     />
                   </div>
                 </div>
-                <Button type="submit" size="lg" className="w-full bg-soft-blue hover:bg-soft-blue/90 text-white" disabled={loading}>
+                <Button type="submit" size="lg" className="w-full" disabled={loading}>
                   {loading ? "Searching..." : "Find Laptops"}
                 </Button>
               </form>
@@ -219,7 +233,7 @@ export default function Home() {
         {loading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[...Array(3)].map((_, i) => (
-              <Card key={i} className="shadow-lg bg-white">
+              <Card key={i} className="shadow-lg">
                 <CardHeader>
                   <Skeleton className="h-6 w-3/4" />
                   <Skeleton className="h-4 w-1/2" />
@@ -230,7 +244,7 @@ export default function Home() {
                   <Skeleton className="h-5 w-full" />
                    <Skeleton className="h-20 w-full" />
                 </CardContent>
-                <CardFooter className="bg-gray-50 p-4">
+                <CardFooter className="p-4">
                    <Skeleton className="h-10 w-full" />
                 </CardFooter>
               </Card>
@@ -241,7 +255,7 @@ export default function Home() {
         {hasSearched && !loading && recommendations && searchCriteria && (
           <>
             <div className="flex justify-between items-center mb-8">
-               <h2 className="text-3xl font-bold text-soft-blue">
+               <h2 className="text-3xl font-bold text-primary">
                 Our Top Recommendations
               </h2>
               {comparisonLaptops.length > 1 && (
@@ -263,10 +277,10 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-16 px-6 bg-white rounded-lg shadow-md">
-                <Bot size={48} className="mx-auto text-soft-blue" />
-                <h3 className="mt-4 text-2xl font-bold text-gray-800">No Matches Found</h3>
-                <p className="mt-2 text-gray-500">
+              <div className="text-center py-16 px-6 bg-card rounded-lg shadow-md">
+                <Bot size={48} className="mx-auto text-primary" />
+                <h3 className="mt-4 text-2xl font-bold">No Matches Found</h3>
+                <p className="mt-2 text-muted-foreground">
                   We couldn't find any laptops matching your criteria.
                   <br />
                   Try adjusting your budget or filters.

@@ -37,11 +37,11 @@ export function LaptopCard({
   onNoteChange: (laptopId: string, note: string) => void;
 }) {
   return (
-    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white border-soft-blue/20">
+    <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 border-primary/20">
       <CardHeader>
         <div className="flex justify-between items-start">
           <div>
-            <CardTitle className="font-headline text-soft-blue">{laptop.name}</CardTitle>
+            <CardTitle className="font-headline text-primary">{laptop.name}</CardTitle>
             <CardDescription>{laptop.brand}</CardDescription>
           </div>
            <div className="flex items-center space-x-2">
@@ -57,7 +57,7 @@ export function LaptopCard({
              <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Badge variant="secondary" className="bg-accent text-accent-foreground cursor-help">
+                  <Badge variant="secondary" className="cursor-help">
                      <PercentCircle className="w-4 h-4 mr-2" />
                     Student Deal
                   </Badge>
@@ -70,30 +70,30 @@ export function LaptopCard({
           )}
 
         <div className="flex items-center space-x-3">
-          <span className="text-2xl font-semibold text-soft-blue">
+          <span className="text-2xl font-semibold text-primary">
             ₹{laptop.price.toLocaleString("en-IN")}
           </span>
         </div>
         <div className="flex items-start space-x-3">
-          <Cpu className="w-5 h-5 text-soft-blue flex-shrink-0 mt-0.5" />
+          <Cpu className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
           <span>{laptop.cpu}</span>
         </div>
         <div className="flex items-start space-x-3">
-          <MemoryStick className="w-5 h-5 text-soft-blue flex-shrink-0 mt-0.5" />
+          <MemoryStick className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
           <span>{laptop.ram}GB RAM</span>
         </div>
         <div className="flex items-start space-x-3">
-          <BrainCircuit className="w-5 h-5 text-soft-blue flex-shrink-0 mt-0.5" />
+          <BrainCircuit className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
           <span>{laptop.gpu}</span>
         </div>
         <div className="flex items-start space-x-3">
-          <Weight className="w-5 h-5 text-soft-blue flex-shrink-0 mt-0.5" />
+          <Weight className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
           <span>{laptop.weight}kg</span>
         </div>
 
         {laptop.softwareCompatibility && (
-           <div className="mt-4 p-3 bg-light-blue/50 rounded-lg">
-              <h4 className="font-semibold text-sm text-soft-blue mb-2 flex items-center">
+           <div className="mt-4 p-3 bg-secondary rounded-lg">
+              <h4 className="font-semibold text-sm text-primary mb-2 flex items-center">
                 Software Compatibility Check
                  <TooltipProvider>
                   <Tooltip>
@@ -106,29 +106,29 @@ export function LaptopCard({
                   </Tooltip>
                 </TooltipProvider>
               </h4>
-              <p className="text-xs text-gray-600 whitespace-pre-wrap">{laptop.softwareCompatibility}</p>
+              <p className="text-xs text-muted-foreground whitespace-pre-wrap">{laptop.softwareCompatibility}</p>
            </div>
         )}
       </CardContent>
        <div className="px-6 pb-4">
         <Separator className="my-4" />
         <div className="space-y-2">
-            <Label htmlFor={`notes-${laptop.id}`} className="flex items-center text-sm font-semibold text-soft-blue">
+            <Label htmlFor={`notes-${laptop.id}`} className="flex items-center text-sm font-semibold text-primary">
                 <MessageSquare className="w-4 h-4 mr-2" />
                 My Notes
             </Label>
             <Textarea 
                 id={`notes-${laptop.id}`}
                 placeholder="e.g. Check reviews on YouTube..." 
-                className="text-sm bg-light-blue/30" 
+                className="text-sm" 
                 value={note}
                 onChange={(e) => onNoteChange(laptop.id, e.target.value)}
                 rows={2}
             />
         </div>
       </div>
-      <CardFooter className="bg-gray-50 p-4 mt-auto grid gap-4">
-        <p className="text-sm text-gray-500 italic">"{laptop.reason}"</p>
+      <CardFooter className="bg-secondary/50 p-4 mt-auto grid gap-4">
+        <p className="text-sm text-muted-foreground italic">"{laptop.reason}"</p>
         <DayInLifeDialog laptop={laptop} purpose={purpose} />
       </CardFooter>
     </Card>

@@ -55,9 +55,6 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        'soft-blue': '#64B5F6',
-        'light-blue': '#E3F2FD',
-        'light-green': '#A5D6A7',
       },
       borderRadius: {
         lg: 'var(--radius)',
