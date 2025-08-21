@@ -10,6 +10,8 @@ export interface Laptop {
   gpu:string;
   weight: number;
   purposeTags: string[];
+  studentDiscount?: boolean;
+  discountInfo?: string;
 }
 
 export interface Recommendation extends Laptop {

@@ -8,7 +8,9 @@
     "cpu": "Apple M2",
     "gpu": "Integrated 8-core",
     "weight": 1.24,
-    "purposeTags": ["study", "coding", "design"]
+    "purposeTags": ["study", "coding", "design"],
+    "studentDiscount": true,
+    "discountInfo": "Save up to ₹10,000 with Apple Education Pricing. Verified students and educators are eligible."
   },
   {
     "id": "2",
@@ -19,7 +21,9 @@
     "cpu": "Intel Core i7-13700H",
     "gpu": "NVIDIA GeForce RTX 4050",
     "weight": 1.92,
-    "purposeTags": ["coding", "design", "gaming"]
+    "purposeTags": ["coding", "design", "gaming"],
+    "studentDiscount": true,
+    "discountInfo": "Dell offers special student discounts via their official website. Requires student ID verification."
   },
   {
     "id": "3",
@@ -30,7 +34,9 @@
     "cpu": "Intel Core i7-1355U",
     "gpu": "Intel Iris Xe",
     "weight": 1.36,
-    "purposeTags": ["study", "coding"]
+    "purposeTags": ["study", "coding"],
+    "studentDiscount": true,
+    "discountInfo": "HP's Student Store offers exclusive prices and deals. Sign up with your university email."
   },
   {
     "id": "4",
@@ -41,7 +47,9 @@
     "cpu": "Intel Core i5-1335U",
     "gpu": "Intel Iris Xe",
     "weight": 1.5,
-    "purposeTags": ["study", "coding"]
+    "purposeTags": ["study", "coding"],
+    "studentDiscount": true,
+    "discountInfo": "Lenovo provides student discounts through various partner websites and their own portal."
   },
   {
     "id": "5",
@@ -52,7 +60,8 @@
     "cpu": "AMD Ryzen 9 7940HS",
     "gpu": "NVIDIA GeForce RTX 4060",
     "weight": 1.72,
-    "purposeTags": ["gaming", "design", "coding"]
+    "purposeTags": ["gaming", "design", "coding"],
+    "studentDiscount": false
   },
   {
     "id": "6",
@@ -63,7 +72,8 @@
     "cpu": "Intel Core i5-1335U",
     "gpu": "Intel Iris Xe",
     "weight": 1.25,
-    "purposeTags": ["study"]
+    "purposeTags": ["study"],
+    "studentDiscount": false
   },
   {
     "id": "7",
@@ -74,7 +84,9 @@
     "cpu": "Apple M3 Pro",
     "gpu": "Integrated 14-core",
     "weight": 1.6,
-    "purposeTags": ["design", "coding"]
+    "purposeTags": ["design", "coding"],
+    "studentDiscount": true,
+    "discountInfo": "Save up to ₹15,000 with Apple Education Pricing. Verified students and educators are eligible."
   },
   {
     "id": "8",
@@ -85,7 +97,8 @@
     "cpu": "Intel Core i7-13800H",
     "gpu": "NVIDIA GeForce RTX 4070",
     "weight": 2.01,
-    "purposeTags": ["gaming", "design"]
+    "purposeTags": ["gaming", "design"],
+    "studentDiscount": false
   },
   {
     "id": "9",
@@ -96,7 +109,9 @@
     "cpu": "Intel Core i7-1255U",
     "gpu": "Intel Iris Xe",
     "weight": 1.29,
-    "purposeTags": ["study", "coding"]
+    "purposeTags": ["study", "coding"],
+    "studentDiscount": true,
+    "discountInfo": "Microsoft offers student and parent discounts on Surface devices. Check their education store for details."
   },
   {
     "id": "10",
@@ -107,7 +122,8 @@
     "cpu": "AMD Ryzen 5 7535HS",
     "gpu": "NVIDIA GeForce RTX 2050",
     "weight": 2.3,
-    "purposeTags": ["gaming", "study"]
+    "purposeTags": ["gaming", "study"],
+    "studentDiscount": false
   },
   {
     "id": "11",
@@ -118,7 +134,8 @@
     "cpu": "Intel Core i5-1235U",
     "gpu": "Intel UHD",
     "weight": 1.65,
-    "purposeTags": ["study"]
+    "purposeTags": ["study"],
+    "studentDiscount": false
   },
   {
     "id": "12",
@@ -129,7 +146,9 @@
     "cpu": "AMD Ryzen 5 7535U",
     "gpu": "AMD Radeon Graphics",
     "weight": 0.99,
-    "purposeTags": ["study", "coding"]
+    "purposeTags": ["study", "coding"],
+    "studentDiscount": true,
+    "discountInfo": "HP's Student Store offers exclusive prices and deals. Sign up with your university email."
   },
     {
     "id": "13",
@@ -140,7 +159,8 @@
     "cpu": "AMD Ryzen 3 7320U",
     "gpu": "AMD Radeon Graphics",
     "weight": 1.78,
-    "purposeTags": ["study"]
+    "purposeTags": ["study"],
+    "studentDiscount": false
   },
   {
     "id": "14",
@@ -151,6 +171,8 @@
     "cpu": "Intel Core i7-13650HX",
     "gpu": "NVIDIA GeForce RTX 4050",
     "weight": 2.81,
-    "purposeTags": ["gaming", "coding"]
+    "purposeTags": ["gaming", "coding"],
+    "studentDiscount": true,
+    "discountInfo": "Dell offers special student discounts via their official website. Requires student ID verification."
   }
 ]

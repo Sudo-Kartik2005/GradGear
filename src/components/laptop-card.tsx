@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import type { Recommendation, SearchCriteria } from "@/types";
-import { Cpu, MemoryStick, BrainCircuit, Weight, Info } from "lucide-react";
+import { Cpu, MemoryStick, BrainCircuit, Weight, Info, PercentCircle } from "lucide-react";
 import { DayInLifeDialog } from "./day-in-life-dialog";
 import {
   Tooltip,
@@ -15,6 +15,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Badge } from "@/components/ui/badge";
 
 export function LaptopCard({
   laptop,
@@ -26,8 +27,27 @@ export function LaptopCard({
   return (
     <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white border-soft-blue/20">
       <CardHeader>
-        <CardTitle className="font-headline text-soft-blue">{laptop.name}</CardTitle>
-        <CardDescription>{laptop.brand}</CardDescription>
+        <div className="flex justify-between items-start">
+          <div>
+            <CardTitle className="font-headline text-soft-blue">{laptop.name}</CardTitle>
+            <CardDescription>{laptop.brand}</CardDescription>
+          </div>
+          {laptop.studentDiscount && (
+             <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Badge variant="secondary" className="bg-accent text-accent-foreground cursor-help">
+                     <PercentCircle className="w-4 h-4 mr-2" />
+                    Student Deal
+                  </Badge>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="max-w-xs">{laptop.discountInfo}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </div>
       </CardHeader>
       <CardContent className="grid gap-4 flex-grow text-sm">
         <div className="flex items-center space-x-3">
